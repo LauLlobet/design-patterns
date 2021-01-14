@@ -1,6 +1,7 @@
 export class Rover {
   private positionY = 0;
   private direction = "N";
+  private directions = "NESW";
 
   getPosition(): string {
     return `0:${this.positionY}:${this.direction}`;
@@ -14,16 +15,25 @@ export class Rover {
     return this.positionY === 10;
   }
 
+  private isRightCommand(command: string): boolean {
+    return command === "R";
+  }
+
+  private turnRight() {
+    this.direction = this.directions[
+      this.directions.indexOf(this.direction) + 1
+    ];
+  }
+
   execute(input: string) {
     const commands: string[] = input.split("");
 
-    commands.forEach((command) => {
+    commands.forEach(command => {
       if (this.isMoveCommand(command)) {
         this.moveNorth();
-      } else if (this.isFacingNorth()) {
-        this.direction = "E";
-      } else if (this.isFacingEast()) {
-        this.direction = "S";
+      }
+      if (this.isRightCommand(command)) {
+        this.turnRight();
       }
     });
   }
@@ -34,6 +44,10 @@ export class Rover {
 
   private isFacingNorth(): boolean {
     return this.direction === "N";
+  }
+
+  private isFacingSouth(): boolean {
+    return this.direction === "S";
   }
 
   private moveNorth() {
