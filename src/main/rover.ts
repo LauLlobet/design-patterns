@@ -9,5 +9,7 @@ export class Rover {
     const commands: string[] = input.split("");
 
     commands.forEach(() => this.positionY++);
+
+    if (this.positionY === 11) this.positionY = 0;
   }
 }
