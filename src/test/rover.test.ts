@@ -7,33 +7,16 @@ describe("Mars Rover", () => {
     expect(rover.getPosition()).toBe("0:0:N");
   });
 
-  it("should move the robot when given input 'M'", () => {
+  it.each([
+    ["M", "0:1:N"],
+    ["MM", "0:2:N"],
+    ["MMMMMMMMMMM", "0:0:N"],
+    ["MMMMMMMMMMMM", "0:1:N"],
+    ["R", "0:0:E"],
+    ["RR", "0:0:S"],
+  ])("when given %s it should return %s", (input, output) => {
     const rover = new Rover();
-    rover.execute("M");
-    expect(rover.getPosition()).toBe("0:1:N");
-  });
-
-  it("should move the robot twice given 'MM'", () => {
-    const rover = new Rover();
-    rover.execute("MM");
-    expect(rover.getPosition()).toBe("0:2:N");
-  });
-
-  it("should wrap the robot around the grid when input is 'MMMMMMMMMMM'", () => {
-    const rover = new Rover();
-    rover.execute("MMMMMMMMMMM");
-    expect(rover.getPosition()).toBe("0:0:N");
-  });
-
-  it("should wrap the robot around the grid when input is 'MMMMMMMMMMMM'", () => {
-    const rover = new Rover();
-    rover.execute("MMMMMMMMMMMM");
-    expect(rover.getPosition()).toBe("0:1:N");
-  });
-
-  it("should face the rover to the east when turning right", () => {
-    const rover = new Rover();
-    rover.execute("R");
-    expect(rover.getPosition()).toBe("0:0:E");
+    rover.execute(input);
+    expect(rover.getPosition()).toBe(output);
   });
 });
