@@ -10,8 +10,8 @@ describe("Mars Rover", () => {
   it.each([
     ["M", "0:1:N"],
     ["MM", "0:2:N"],
-    ["MMMMMMMMMMM", "0:0:N"],
-    ["MMMMMMMMMMMM", "0:1:N"],
+    ["MMMMMMMMMM", "0:0:N"],
+    ["MMMMMMMMMMM", "0:1:N"],
     ["R", "0:0:E"],
     ["RR", "0:0:S"],
     ["RRR", "0:0:W"],

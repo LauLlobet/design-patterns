@@ -27,7 +27,7 @@ export class Rover {
   }
 
   private isAtNorthBoundary(): boolean {
-    return this.positionY === 10;
+    return this.positionY === 9;
   }
 
   private turnRight() {
@@ -55,9 +55,14 @@ export class Rover {
   execute(input: string) {
     const commands: string[] = input.split("");
 
-    commands.forEach(command => {
+    commands.forEach((command) => {
       if (this.isMoveCommand(command)) {
-        this.moveNorth();
+        if (this.direction === "N") {
+          this.moveNorth();
+        }
+        if (this.direction === "S") {
+          this.moveSouth();
+        }
       }
       if (this.isRightCommand(command)) {
         this.turnRight();
@@ -73,6 +78,14 @@ export class Rover {
       this.positionY = 0;
     } else {
       this.positionY++;
+    }
+  }
+
+  private moveSouth() {
+    if (this.positionY === 0) {
+      this.positionY = 9;
+    } else {
+      this.positionY--;
     }
   }
 }
