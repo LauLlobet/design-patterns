@@ -28,6 +28,12 @@ describe("Mars Rover", () => {
   it("should wrap the robot around the grid when input is 'MMMMMMMMMMMM'", () => {
     const rover = new Rover();
     rover.execute("MMMMMMMMMMMM");
-    expect(rover.getPosition()).toBe("0:2:N");
+    expect(rover.getPosition()).toBe("0:1:N");
+  });
+
+  it("should face the rover to the east when turning right", () => {
+    const rover = new Rover();
+    rover.execute("R");
+    expect(rover.getPosition()).toBe("0:0:E");
   });
 });
