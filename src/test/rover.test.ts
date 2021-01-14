@@ -17,6 +17,7 @@ describe("Mars Rover", () => {
     ["RRR", "0:0:W"],
     ["RRRR", "0:0:N"],
     ["L", "0:0:W"],
+    ["LL", "0:0:W"],
   ])("when given %s it should return %s", (input, output) => {
     const rover = new Rover();
     rover.execute(input);

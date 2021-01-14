@@ -1,6 +1,8 @@
+type Direction = 'N' | 'E' | 'S' | 'W'
+
 export class Rover {
   private positionY = 0;
-  private direction = "N";
+  private direction: Direction = "N";
   private directions = "NESW";
 
   getPosition(): string {
@@ -20,9 +22,14 @@ export class Rover {
   }
 
   private turnRight() {
-    const newIndex = this.directions.indexOf(this.direction) + 1;
-    const finalDirection = newIndex > 3 ? 0 : newIndex;
-    this.direction = this.directions[finalDirection];
+    const nextDirection: Record<Direction, Direction> = {
+      'N': 'E',
+      'E': 'S',
+      'S': 'W',
+      'W': 'N',
+    }
+
+    this.direction = nextDirection[this.direction]
   }
 
   execute(input: string) {
@@ -34,6 +41,9 @@ export class Rover {
       }
       if (this.isRightCommand(command)) {
         this.turnRight();
+      }
+      if (input === "L") {
+        this.direction = "W"
       }
     });
   }
