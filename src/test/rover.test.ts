@@ -1,15 +1,16 @@
 import { Rover } from "../main/rover";
 
 describe("Mars Rover", () => {
-  it("should get the robot's position", () => {
-    const rover = new Rover(0, 0);
+  it("should always start the rover at position 0:0:N", () => {
+    const rover = new Rover();
 
-    expect(rover.getPosition()).toBe("0,0");
+    expect(rover.getPosition()).toBe("0:0:N");
   });
 
-  it("should get position when instantiated with x = 5, y = 6", () => {
-    const rover = new Rover(5, 6);
-
-    expect(rover.getPosition()).toBe("5,6");
-  });
+  it("should move the robot when given input 'M'"),
+    () => {
+      const rover = new Rover();
+      rover.execute("M");
+      expect(rover.getPosition()).toBe("0:1:N");
+    };
 });

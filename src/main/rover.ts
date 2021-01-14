@@ -1,5 +1,5 @@
 export class Rover {
   getPosition(): string {
-    return "0,0";
+    return "0:0:N";
   }
 }
