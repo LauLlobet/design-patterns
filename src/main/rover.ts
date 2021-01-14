@@ -20,15 +20,15 @@ export class Rover {
   }
 
   private turnRight() {
-    this.direction = this.directions[
-      this.directions.indexOf(this.direction) + 1
-    ];
+    const newIndex = this.directions.indexOf(this.direction) + 1;
+    const finalDirection = newIndex > 3 ? 0 : newIndex;
+    this.direction = this.directions[finalDirection];
   }
 
   execute(input: string) {
     const commands: string[] = input.split("");
 
-    commands.forEach(command => {
+    commands.forEach((command) => {
       if (this.isMoveCommand(command)) {
         this.moveNorth();
       }
