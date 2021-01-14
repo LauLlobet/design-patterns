@@ -1,8 +1,9 @@
-import {Example} from "../main/example";
+import { Example } from "../main/example";
 
-describe('example test', () => {
-    it("should give sum of a + b when adding a and b", () => {
-        let example: Example = new Example();
-        expect(example.add(1, 2)).toBe(3);
-    })
-})
+describe("Mars Rover", () => {
+  it("should get the robot's position", () => {
+    const rover = new Rover();
+
+    expect(rover.getPosition()).toBe("0,0");
+  });
+});
