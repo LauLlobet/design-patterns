@@ -7,10 +7,15 @@ describe("Mars Rover", () => {
     expect(rover.getPosition()).toBe("0:0:N");
   });
 
-  it("should move the robot when given input 'M'"),
-    () => {
-      const rover = new Rover();
-      rover.execute("M");
-      expect(rover.getPosition()).toBe("0:1:N");
-    };
+  it("should move the robot when given input 'M'", () => {
+    const rover = new Rover();
+    rover.execute("M");
+    expect(rover.getPosition()).toBe("0:1:N");
+  });
+
+  it("should move the robot twice given 'MM'", () => {
+    const rover = new Rover();
+    rover.execute("MM");
+    expect(rover.getPosition()).toBe("0:2:N");
+  });
 });

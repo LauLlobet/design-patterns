@@ -1,5 +1,11 @@
 export class Rover {
+  private positionY = 0;
+
   getPosition(): string {
-    return "0:0:N";
+    return `0:${this.positionY}:N`;
+  }
+
+  execute(input: string) {
+    this.positionY++;
   }
 }
