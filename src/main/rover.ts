@@ -6,6 +6,8 @@ export class Rover {
   }
 
   execute(input: string) {
-    this.positionY++;
+    const commands: string[] = input.split("");
+
+    commands.forEach(() => this.positionY++);
   }
 }
