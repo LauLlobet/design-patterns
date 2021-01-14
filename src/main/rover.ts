@@ -17,13 +17,23 @@ export class Rover {
   execute(input: string) {
     const commands: string[] = input.split("");
 
-    commands.forEach(command => {
+    commands.forEach((command) => {
       if (this.isMoveCommand(command)) {
         this.moveNorth();
-      } else {
+      } else if (this.isFacingNorth()) {
         this.direction = "E";
+      } else if (this.isFacingEast()) {
+        this.direction = "S";
       }
     });
+  }
+
+  private isFacingEast() {
+    return this.direction === "E";
+  }
+
+  private isFacingNorth(): boolean {
+    return this.direction === "N";
   }
 
   private moveNorth() {
