@@ -46,7 +46,7 @@ execute(input: string) {
 
   commands.forEach((command) => {
     if (this.isMoveCommand(command)) {
-      this.move();
+      this.move(this);
     }
     if (!this.isRightCommand(command)) {} else {
       this.turnRight();
@@ -57,12 +57,12 @@ execute(input: string) {
   });
 }
 
-  private move() {
-    if (this.direction === "N") {
-      this.moveNorth();
+  private move(rover: Rover) {
+    if (rover.direction === "N") {
+      rover.moveNorth();
     }
-    if (this.direction === "S") {
-      this.moveSouth();
+    if (rover.direction === "S") {
+      rover.moveSouth();
     }
   }
 
