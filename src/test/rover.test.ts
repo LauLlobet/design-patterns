@@ -64,20 +64,18 @@ export class Rover {
 
 execute(input: string) {
   const commands: string[] = input.split("");
-
+  var commandClass: any = undefined
   commands.forEach((command) => {
     if (this.isMoveCommand(command)) {
-      let command = new MoveCommand();
-      command.execute(this);
+      commandClass = new MoveCommand();
     }
     if (!this.isRightCommand(command)) {} else {
-      let command = new TurnRightCommand();
-      command.execute(this)
+      commandClass = new TurnRightCommand();
     }
     if (this.isLeftCommand(command)) {
-      let command = new TurnLeftCommand();
-      command.execute(this)
+      commandClass = new TurnLeftCommand();
     }
+    commandClass.execute(this);
   });
 }
 
