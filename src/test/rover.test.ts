@@ -69,7 +69,7 @@ class UndoMoveCommand {
   public execute(context: Rover) {
     context.turnLeft()
     context.turnLeft()
-    let command = CommandFactory.commandFor('M');
+    let command = CommandFactory.commandFor('M',"");
     command.execute(context); 
     context.turnLeft()
     context.turnLeft()
@@ -87,10 +87,8 @@ class TurnRightCommand {
 }
 
 class CommandFactory {
-  private static previousCommands: String[] = []
-  public static commandFor(command: string) {
-    var previousCommand = undefined
-    previousCommand = CommandFactory.trackCommands(command, previousCommand);
+  private static previousCommands: string[] = []
+  public static commandFor(command: string, previousCommand: string | undefined) {
     if (this.isMoveCommand(command)) {
       return new MoveCommand();
     }
@@ -107,7 +105,8 @@ class CommandFactory {
     return new TurnLeftCommand();
   }
 
-  private static trackCommands(command: string, previousCommand: any) {
+  public static trackCommands(command: string): string | undefined {
+    let previousCommand: string | undefined= "";
     if (command === 'U') {
       previousCommand = this.previousCommands.pop();
     } else {
@@ -189,7 +188,7 @@ export class RoverCLI {
   execute(input: string) {
     const commands: string[] = input.split("");
     commands.forEach((commandChar) => {
-      let command = CommandFactory.commandFor(commandChar);
+      let command = CommandFactory.commandFor(commandChar, CommandFactory.trackCommands(commandChar));
       command.execute(this.rover);
     });
   }
