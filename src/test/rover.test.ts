@@ -86,8 +86,21 @@ class TurnRightCommand {
   }
 }
 
-class CommandFactory {
+class CommandHistory {
   private static previousCommands: string[] = []
+
+  public static trackCommands(command: string): string | undefined {
+    let previousCommand: string | undefined= "";
+    if (command === 'U') {
+      previousCommand = this.previousCommands.pop();
+    } else {
+      this.previousCommands.push(command);
+    }
+    return previousCommand;
+  }
+}
+
+class CommandFactory {
   public static commandFor(command: string, previousCommand: string | undefined) {
     if (this.isMoveCommand(command)) {
       return new MoveCommand();
@@ -103,16 +116,6 @@ class CommandFactory {
 
     }
     return new TurnLeftCommand();
-  }
-
-  public static trackCommands(command: string): string | undefined {
-    let previousCommand: string | undefined= "";
-    if (command === 'U') {
-      previousCommand = this.previousCommands.pop();
-    } else {
-      this.previousCommands.push(command);
-    }
-    return previousCommand;
   }
 
   private static isMoveCommand(command: string): boolean {
@@ -188,7 +191,7 @@ export class RoverCLI {
   execute(input: string) {
     const commands: string[] = input.split("");
     commands.forEach((commandChar) => {
-      let command = CommandFactory.commandFor(commandChar, CommandFactory.trackCommands(commandChar));
+      let command = CommandFactory.commandFor(commandChar, CommandHistory.trackCommands(commandChar));
       command.execute(this.rover);
     });
   }
