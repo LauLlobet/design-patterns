@@ -24,6 +24,15 @@ describe("Mars Rover", () => {
     rovercli.execute(input);
     expect(rovercli.getPosition()).toBe(output);
   });
+
+
+  it.each([
+    ["MU", "0:0:N"],
+  ])("when given %s it should return %s after undoing", (input, output) => {
+    const rovercli = new RoverCLI();
+    rovercli.execute(input);
+    expect(rovercli.getPosition()).toBe(output);
+  });
 });
 
 
