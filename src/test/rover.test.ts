@@ -88,7 +88,7 @@ class CommandFactory {
     if (!this.isRightCommand(command)) { } else {
       return new TurnRightCommand();
     }
-    if(command == 'U'){
+    if(this.isUndoMoveCommand(command)){
       return new UndoMoveCommand();
 
     }
@@ -101,6 +101,10 @@ class CommandFactory {
 
   private static isRightCommand(command: string): boolean {
     return command === Command.TurnRight;
+  }
+
+  private static isUndoMoveCommand(command: string): boolean {
+    return command == 'U'
   }
 }
 class Rover {
