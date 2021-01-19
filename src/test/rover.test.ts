@@ -115,7 +115,7 @@ class CommandFactory {
     if(command == 'U' && previousCommand === 'L' ){
       return new TurnRightCommand();
     }
-    if(this.isUndoMoveCommand(command)){
+    if(command == 'U' && previousCommand === 'M'){
       return new UndoMoveCommand();
 
     }
