@@ -57,20 +57,9 @@ class TurnRightCommand {
     context.turnRight()
   }
 }
-export class Rover {
-  private positionY = 0;
-  public direction: Direction = "N"; // WHY: no module level encapsulation... https://github.com/microsoft/TypeScript/issues/321
 
-
-execute(input: string) {
-  const commands: string[] = input.split("");
-  commands.forEach((commandChar) => {
-    let command = this.commandFor(commandChar);
-    command.execute(this);
-  });
-}
-
-  private commandFor(command: string) {
+class CommandFactory {
+  public static commandFor(command: string) {
     if (this.isMoveCommand(command)) {
       return new MoveCommand();
     }
@@ -80,21 +69,33 @@ execute(input: string) {
     return new TurnLeftCommand();
   }
 
+  private static isMoveCommand(command: string): boolean {
+    return command === Command.Move;
+  }
+
+  private static isRightCommand(command: string): boolean {
+    return command === Command.TurnRight;
+  }
+}
+export class Rover {
+  private positionY = 0;
+  public direction: Direction = "N"; // WHY: no module level encapsulation... https://github.com/microsoft/TypeScript/issues/321
+
+
+execute(input: string) {
+  const commands: string[] = input.split("");
+  commands.forEach((commandChar) => {
+    let command = CommandFactory.commandFor(commandChar);
+    command.execute(this);
+  });
+}
+
+
   getPosition(): string {
     return `0:${this.positionY}:${this.direction}`;
   }
 
-  private isMoveCommand(command: string): boolean {
-    return command === Command.Move;
-  }
 
-  private isLeftCommand(command: string): boolean {
-    return command === Command.TurnLeft;
-  }
-
-  private isRightCommand(command: string): boolean {
-    return command === Command.TurnRight;
-  }
 
   private isAtNorthBoundary(): boolean {
     return this.positionY === 9;
