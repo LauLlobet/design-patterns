@@ -59,6 +59,16 @@ class MoveCommand {
     }
   }
 }
+class UndoMoveCommand {
+  public execute(context: Rover) {
+    context.turnLeft()
+    context.turnLeft()
+    let command = CommandFactory.commandFor('M');
+    command.execute(context); 
+    context.turnLeft()
+    context.turnLeft()
+  }
+}
 class TurnLeftCommand {
   public execute(context: Rover) {
     context.turnLeft()
@@ -77,6 +87,10 @@ class CommandFactory {
     }
     if (!this.isRightCommand(command)) { } else {
       return new TurnRightCommand();
+    }
+    if(command == 'U'){
+      return new UndoMoveCommand();
+
     }
     return new TurnLeftCommand();
   }
@@ -155,15 +169,6 @@ export class RoverCLI {
   execute(input: string) {
     const commands: string[] = input.split("");
     commands.forEach((commandChar) => {
-      if(commandChar == 'U'){
-        this.rover.turnLeft()
-        this.rover.turnLeft()
-        let command = CommandFactory.commandFor('M');
-        command.execute(this.rover); 
-        this.rover.turnLeft()
-        this.rover.turnLeft()
-        return
-      }
       let command = CommandFactory.commandFor(commandChar);
       command.execute(this.rover);
     });
