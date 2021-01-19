@@ -36,10 +36,31 @@ enum Command {
   TurnLeft = "L",
   TurnRight = "R",
 }
-
 export class Rover {
   private positionY = 0;
   private direction: Direction = "N";
+
+
+execute(input: string) {
+  const commands: string[] = input.split("");
+
+  commands.forEach((command) => {
+    if (this.isMoveCommand(command)) {
+      if (this.direction === "N") {
+        this.moveNorth();
+      }
+      if (this.direction === "S") {
+        this.moveSouth();
+      }
+    }
+    if (this.isRightCommand(command)) {
+      this.turnRight();
+    }
+    if (this.isLeftCommand(command)) {
+      this.turnLeft();
+    }
+  });
+}
 
   getPosition(): string {
     return `0:${this.positionY}:${this.direction}`;
@@ -83,26 +104,6 @@ export class Rover {
     this.direction = nextDirection[this.direction];
   }
 
-  execute(input: string) {
-    const commands: string[] = input.split("");
-
-    commands.forEach((command) => {
-      if (this.isMoveCommand(command)) {
-        if (this.direction === "N") {
-          this.moveNorth();
-        }
-        if (this.direction === "S") {
-          this.moveSouth();
-        }
-      }
-      if (this.isRightCommand(command)) {
-        this.turnRight();
-      }
-      if (this.isLeftCommand(command)) {
-        this.turnLeft();
-      }
-    });
-  }
 
   private moveNorth() {
     if (this.isAtNorthBoundary()) {
