@@ -20,9 +20,9 @@ describe("Mars Rover", () => {
     ["LLLL", "0:0:N"],
     ["RRM", "0:9:S"],
   ])("when given %s it should return %s", (input, output) => {
-    const rover = new Rover();
-    rover.execute(input);
-    expect(rover.getPosition()).toBe(output);
+    const rovercli = new RoverCLI();
+    rovercli.execute(input);
+    expect(rovercli.getPosition()).toBe(output);
   });
 });
 
@@ -77,18 +77,11 @@ class CommandFactory {
     return command === Command.TurnRight;
   }
 }
-export class Rover {
+class Rover {
   private positionY = 0;
   public direction: Direction = "N"; // WHY: no module level encapsulation... https://github.com/microsoft/TypeScript/issues/321
 
 
-execute(input: string) {
-  const commands: string[] = input.split("");
-  commands.forEach((commandChar) => {
-    let command = CommandFactory.commandFor(commandChar);
-    command.execute(this);
-  });
-}
 
 
   getPosition(): string {
@@ -138,5 +131,20 @@ execute(input: string) {
     } else {
       this.positionY--;
     }
+  }
+}
+
+export class RoverCLI {
+  private rover: Rover = new Rover();
+
+  public getPosition(){
+    return this.rover.getPosition();
+  }
+  execute(input: string) {
+    const commands: string[] = input.split("");
+    commands.forEach((commandChar) => {
+      let command = CommandFactory.commandFor(commandChar);
+      command.execute(this.rover);
+    });
   }
 }
