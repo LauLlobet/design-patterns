@@ -1,3 +1,5 @@
+import { timeStamp } from "console";
+
 describe("Mars Rover", () => {
   it("should always start the rover at position 0:0:N", () => {
     const rover = new Rover();
@@ -154,7 +156,12 @@ export class RoverCLI {
     const commands: string[] = input.split("");
     commands.forEach((commandChar) => {
       if(commandChar == 'U'){
-        this.rover = new Rover()
+        this.rover.turnLeft()
+        this.rover.turnLeft()
+        let command = CommandFactory.commandFor('M');
+        command.execute(this.rover); 
+        this.rover.turnLeft()
+        this.rover.turnLeft()
         return
       }
       let command = CommandFactory.commandFor(commandChar);
