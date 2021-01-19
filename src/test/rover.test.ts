@@ -36,9 +36,20 @@ enum Command {
   TurnLeft = "L",
   TurnRight = "R",
 }
+
+class MoveCommand {
+  public move(context: Rover) {
+    if (context.direction === "N") {
+      context.moveNorth();
+    }
+    if (context.direction === "S") {
+      context.moveSouth();
+    }
+  }
+}
 export class Rover {
   private positionY = 0;
-  private direction: Direction = "N";
+  public direction: Direction = "N"; // WHY: no module level encapsulation... https://github.com/microsoft/TypeScript/issues/321
 
 
 execute(input: string) {
@@ -46,7 +57,8 @@ execute(input: string) {
 
   commands.forEach((command) => {
     if (this.isMoveCommand(command)) {
-      this.move(this);
+      let command = new MoveCommand();
+      command.move(this);
     }
     if (!this.isRightCommand(command)) {} else {
       this.turnRight();
@@ -57,14 +69,7 @@ execute(input: string) {
   });
 }
 
-  private move(context: Rover) {
-    if (context.direction === "N") {
-      context.moveNorth();
-    }
-    if (context.direction === "S") {
-      context.moveSouth();
-    }
-  }
+
 
   getPosition(): string {
     return `0:${this.positionY}:${this.direction}`;
@@ -109,7 +114,7 @@ execute(input: string) {
   }
 
 
-  private moveNorth() {
+  public moveNorth() {
     if (this.isAtNorthBoundary()) {
       this.positionY = 0;
     } else {
@@ -117,7 +122,7 @@ execute(input: string) {
     }
   }
 
-  private moveSouth() {
+  public moveSouth() {
     if (this.positionY === 0) {
       this.positionY = 9;
     } else {
