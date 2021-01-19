@@ -37,6 +37,7 @@ describe("Mars Rover", () => {
     ["LLLUU","0:0:W"],
     ["MLUU","0:0:N"],
     ["RU","0:0:N"],
+    ["MRMLMUUU","0:1:E"],
   ])("when given %s it should return %s after undoing", (input, output) => {
     const rovercli = new RoverCLI();
     rovercli.execute(input);
