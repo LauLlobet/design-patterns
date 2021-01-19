@@ -47,7 +47,11 @@ class MoveCommand {
     }
   }
 }
-
+class TurnLeftCommand {
+  public execute(context: Rover) {
+    context.turnLeft()
+  }
+}
 class TurnRightCommand {
   public execute(context: Rover) {
     context.turnRight()
@@ -71,7 +75,8 @@ execute(input: string) {
       command.execute(this)
     }
     if (this.isLeftCommand(command)) {
-      this.turnLeft();
+      let command = new TurnLeftCommand();
+      command.execute(this)
     }
   });
 }
@@ -109,7 +114,7 @@ execute(input: string) {
     this.direction = nextDirection[this.direction];
   }
 
-  private turnLeft() {
+  public turnLeft() {
     const nextDirection: Record<Direction, Direction> = {
       N: "W",
       W: "S",
