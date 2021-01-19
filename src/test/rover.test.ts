@@ -92,13 +92,13 @@ class CommandFactory {
     var previousCommand = undefined
     if(command === 'U'){
        previousCommand = this.previousCommands.pop()
+    } else {
+      this.previousCommands.push(command)
     }
     if (this.isMoveCommand(command)) {
-      this.previousCommands.push('M')
       return new MoveCommand();
     }
     if (!this.isRightCommand(command)) { } else {
-      this.previousCommands.push('R')
       return new TurnRightCommand();
     }
     if(command == 'U' && previousCommand === 'L' ){
@@ -108,7 +108,6 @@ class CommandFactory {
       return new UndoMoveCommand();
 
     }
-    this.previousCommands.push('L')
     return new TurnLeftCommand();
   }
 
