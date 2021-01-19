@@ -47,6 +47,12 @@ class MoveCommand {
     }
   }
 }
+
+class TurnRightCommand {
+  public execute(context: Rover) {
+    context.turnRight()
+  }
+}
 export class Rover {
   private positionY = 0;
   public direction: Direction = "N"; // WHY: no module level encapsulation... https://github.com/microsoft/TypeScript/issues/321
@@ -61,7 +67,8 @@ execute(input: string) {
       command.execute(this);
     }
     if (!this.isRightCommand(command)) {} else {
-      this.turnRight();
+      let command = new TurnRightCommand();
+      command.execute(this)
     }
     if (this.isLeftCommand(command)) {
       this.turnLeft();
@@ -91,7 +98,7 @@ execute(input: string) {
     return this.positionY === 9;
   }
 
-  private turnRight() {
+  public turnRight() {
     const nextDirection: Record<Direction, Direction> = {
       N: "E",
       E: "S",
