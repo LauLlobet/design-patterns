@@ -46,14 +46,9 @@ execute(input: string) {
 
   commands.forEach((command) => {
     if (this.isMoveCommand(command)) {
-      if (this.direction === "N") {
-        this.moveNorth();
-      }
-      if (this.direction === "S") {
-        this.moveSouth();
-      }
+      this.move();
     }
-    if (this.isRightCommand(command)) {
+    if (!this.isRightCommand(command)) {} else {
       this.turnRight();
     }
     if (this.isLeftCommand(command)) {
@@ -61,6 +56,15 @@ execute(input: string) {
     }
   });
 }
+
+  private move() {
+    if (this.direction === "N") {
+      this.moveNorth();
+    }
+    if (this.direction === "S") {
+      this.moveSouth();
+    }
+  }
 
   getPosition(): string {
     return `0:${this.positionY}:${this.direction}`;
