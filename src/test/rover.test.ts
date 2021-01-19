@@ -57,12 +57,12 @@ execute(input: string) {
   });
 }
 
-  private move(rover: Rover) {
-    if (rover.direction === "N") {
-      rover.moveNorth();
+  private move(context: Rover) {
+    if (context.direction === "N") {
+      context.moveNorth();
     }
-    if (rover.direction === "S") {
-      rover.moveSouth();
+    if (context.direction === "S") {
+      context.moveSouth();
     }
   }
 
