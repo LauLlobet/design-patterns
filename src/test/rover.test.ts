@@ -47,6 +47,7 @@ enum Command {
   Move = "M",
   TurnLeft = "L",
   TurnRight = "R",
+  UndoMoveCommand = "U"
 }
 
 class MoveCommand {
@@ -104,21 +105,16 @@ class CommandFactory {
   }
 
   private static isUndoMoveCommand(command: string): boolean {
-    return command == 'U'
+    return command == Command.UndoMoveCommand;
   }
 }
 class Rover {
   private positionY = 0;
   public direction: Direction = "N"; // WHY: no module level encapsulation... https://github.com/microsoft/TypeScript/issues/321
 
-
-
-
   getPosition(): string {
     return `0:${this.positionY}:${this.direction}`;
   }
-
-
 
   private isAtNorthBoundary(): boolean {
     return this.positionY === 9;
