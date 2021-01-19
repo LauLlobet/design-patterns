@@ -90,11 +90,7 @@ class CommandFactory {
   private static previousCommands: String[] = []
   public static commandFor(command: string) {
     var previousCommand = undefined
-    if(command === 'U'){
-       previousCommand = this.previousCommands.pop()
-    } else {
-      this.previousCommands.push(command)
-    }
+    previousCommand = CommandFactory.trackCommands(command, previousCommand);
     if (this.isMoveCommand(command)) {
       return new MoveCommand();
     }
@@ -109,6 +105,15 @@ class CommandFactory {
 
     }
     return new TurnLeftCommand();
+  }
+
+  private static trackCommands(command: string, previousCommand: any) {
+    if (command === 'U') {
+      previousCommand = this.previousCommands.pop();
+    } else {
+      this.previousCommands.push(command);
+    }
+    return previousCommand;
   }
 
   private static isMoveCommand(command: string): boolean {
