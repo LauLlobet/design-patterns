@@ -87,9 +87,9 @@ class TurnRightCommand {
 }
 
 class CommandHistory {
-  private static previousCommands: string[] = []
+  private  previousCommands: string[] = []
 
-  public static trackCommands(command: string): string | undefined {
+  public trackCommands(command: string): string | undefined {
     let previousCommand: string | undefined= "";
     if (command === 'U') {
       previousCommand = this.previousCommands.pop();
@@ -190,8 +190,9 @@ export class RoverCLI {
   }
   execute(input: string) {
     const commands: string[] = input.split("");
+    const commandHistory: CommandHistory = new CommandHistory();
     commands.forEach((commandChar) => {
-      let command = CommandFactory.commandFor(commandChar, CommandHistory.trackCommands(commandChar));
+      let command = CommandFactory.commandFor(commandChar, commandHistory.trackCommands(commandChar));
       command.execute(this.rover);
     });
   }
