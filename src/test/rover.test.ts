@@ -152,6 +152,10 @@ export class RoverCLI {
   execute(input: string) {
     const commands: string[] = input.split("");
     commands.forEach((commandChar) => {
+      if(commandChar == 'U'){
+        this.rover = new Rover()
+        return
+      }
       let command = CommandFactory.commandFor(commandChar);
       command.execute(this.rover);
     });
