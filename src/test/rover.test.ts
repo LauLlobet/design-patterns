@@ -85,17 +85,26 @@ class TurnRightCommand {
 }
 
 class CommandFactory {
+  private static previousCommand = ''
   public static commandFor(command: string) {
     if (this.isMoveCommand(command)) {
+      this.previousCommand = 'M'
       return new MoveCommand();
     }
     if (!this.isRightCommand(command)) { } else {
+      this.previousCommand = 'R'
+      return new TurnRightCommand();
+    }
+    if(command == 'U' && this.previousCommand === 'L' ){
+      this.previousCommand = 'U'
       return new TurnRightCommand();
     }
     if(this.isUndoMoveCommand(command)){
+      this.previousCommand = 'U'
       return new UndoMoveCommand();
 
     }
+    this.previousCommand = 'L'
     return new TurnLeftCommand();
   }
 
