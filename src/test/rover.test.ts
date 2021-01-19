@@ -38,7 +38,7 @@ enum Command {
 }
 
 class MoveCommand {
-  public move(context: Rover) {
+  public execute(context: Rover) {
     if (context.direction === "N") {
       context.moveNorth();
     }
@@ -58,7 +58,7 @@ execute(input: string) {
   commands.forEach((command) => {
     if (this.isMoveCommand(command)) {
       let command = new MoveCommand();
-      command.move(this);
+      command.execute(this);
     }
     if (!this.isRightCommand(command)) {} else {
       this.turnRight();
