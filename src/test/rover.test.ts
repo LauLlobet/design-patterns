@@ -28,6 +28,7 @@ describe("Mars Rover", () => {
 
   it.each([
     ["MU", "0:0:N"],
+    ["MMU", "0:1:N"],
   ])("when given %s it should return %s after undoing", (input, output) => {
     const rovercli = new RoverCLI();
     rovercli.execute(input);
